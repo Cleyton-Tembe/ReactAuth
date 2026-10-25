@@ -110,9 +110,10 @@ export const login = async (req: Request, res: Response) => {
     const isCorrect = await bcrypt.compare(password, dbUser?.password);
 
     if (!isCorrect) {
-      return res
-        .status(400)
-        .json({ message: "Incorrect credential", success: false });
+      return res.status(400).json({
+        message: "boss nao mudamos as credenciais semana passada ?",
+        success: false,
+      });
     }
 
     createToken(dbUser._id.toString(), res);
@@ -218,7 +219,6 @@ export const resetPassword = async (req: Request, res: Response) => {
     dbUser.resetPasswordExperiresAt = undefined;
     dbUser.resetPasswordToken = undefined;
     await dbUser.save();
-
     await sendSuccessResetEmail(dbUser.email);
 
     return res

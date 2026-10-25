@@ -1,0 +1,25 @@
+{
+  "name": "reactauth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install --prefix BackEnd && npm install --prefix FrontEnd && npm run build --prefix FrontEnd",
+    "start": "npm run start --prefix BackEnd",
+    "back": "npm run start --prefix BackEnd",
+    "front": "npm run dev --prefix FrontEnd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cleyton-Tembe/ReactAuth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Cleyton-Tembe/ReactAuth/issues"
+  },
+  "homepage": "https://github.com/Cleyton-Tembe/ReactAuth#readme"
+}

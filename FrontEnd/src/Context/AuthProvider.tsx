@@ -136,7 +136,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       if (error.response) {
         console.log("checkAuth: ", error.response.data.message);
-        toast.error(error.response.data.message);
+        if (error.response.data) {
+          toast.error(error.response.data.message);
+        }
         navigate("/login", { replace: true });
       }
       console.log("checkAuth: ", error);
