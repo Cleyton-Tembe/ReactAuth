@@ -17,16 +17,14 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (req: Request, res: Response) => {
-  return res.status(200).send(`<p>hello ${req.host}</p>`);
-});
-
 app.use("/api/auth", authRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "frontend/dist")));
   app.get("/{*splat}", (req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(
+      path.resolve(__dirname, "../", "frontend", "dist", "index.html"),
+    );
   });
   console.log("production ready");
 }
