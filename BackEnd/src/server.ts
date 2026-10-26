@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "frontend/dist")));
   app.get("/{*splat}", (req: Request, res: Response) => {
     res.sendFile(
-      path.resolve(__dirname, "../", "frontend", "dist", "index.html"),
+      path.resolve(__dirname, "../../", "frontend", "dist", "index.html"),
     );
   });
   console.log("production ready");
