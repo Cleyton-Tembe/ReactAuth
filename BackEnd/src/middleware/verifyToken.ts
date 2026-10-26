@@ -22,6 +22,12 @@ export default async function protectToken(
     if (!decode) {
       return res.status(401).json({ message: "Not authorized token" });
     }
+    if (typeof decode === "string" || typeof decode.id !== "string") {
+      res.status(401).json({
+        message: "Invalid token payload",
+      });
+      return;
+    }
 
     const dbUser = await User.findOne({ _id: decode.id });
 
