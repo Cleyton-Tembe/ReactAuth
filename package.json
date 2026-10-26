@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm ci --include=dev --prefix BackEnd && npm ci --include=dev --prefix FrontEnd  && npm ls @types/cors @types/cookie-parser && npm run build --prefix BackEnd && npm run build --prefix FrontEnd",
+    "build": "npm ci --include=dev --prefix BackEnd && npm ci --include=dev --prefix FrontEnd  && npm ls @types/cors @types/cookie-parser --prefix BackEnd && npm run build --prefix BackEnd && npm run build --prefix FrontEnd",
     "local:b": "npm run build --prefix BackEnd && npm run build --prefix FrontEnd",
     "start": "npm run start --prefix BackEnd",
     "back": "npm run start --prefix BackEnd",
