@@ -12,7 +12,7 @@ export const sendVerificationEmail = async (
   verificationToken: string,
 ): Promise<void> => {
   try {
-    const response = mailClient
+    const response = await mailClient
       .sendMail({
         from: "From React Auth Web App",
         to: email,
