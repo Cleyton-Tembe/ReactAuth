@@ -4,11 +4,11 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import AuthProvider from "./Context/AuthProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <HashRouter>
-    <BrowserRouter>
+  <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <App />
       </AuthProvider>
-    </BrowserRouter>
-  </HashRouter>,
+    </HashRouter>
+  </BrowserRouter>,
 );
