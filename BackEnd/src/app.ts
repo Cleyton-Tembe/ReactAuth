@@ -1,7 +1,12 @@
-import express, { type Request, type Response } from "express";
+import express, {
+  type Request,
+  type Response,
+  type NextFunction,
+} from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.ts";
+import connectionDB from "./db/mongo.ts";
 
 const app = express();
 
@@ -17,6 +22,16 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/api", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await connectionDB();
+    next();
+  } catch (error) {
+    console.error("DB connection error:", error);
+    res.status(500).json({ message: "Database connection failed" });
+  }
+});
 
 app.use("/api/auth", authRoutes);
 

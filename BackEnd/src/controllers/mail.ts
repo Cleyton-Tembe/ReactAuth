@@ -1,4 +1,3 @@
-import type { Request, Response } from "express";
 import {
   PASSWORD_RESET_REQUEST_TEMPLATE,
   PASSWORD_RESET_SUCCESS_TEMPLATE,
@@ -12,19 +11,17 @@ export const sendVerificationEmail = async (
   verificationToken: string,
 ): Promise<void> => {
   try {
-    const response = await mailClient
-      .sendMail({
-        from: "From React Auth Web App",
-        to: email,
-        subject: "verification email",
-        html: VERIFICATION_EMAIL_TEMPLATE.replace(
-          "{verificationCode}",
-          verificationToken,
-        ),
-      })
-      .then(console.log, console.error);
+    const response = await mailClient.sendMail({
+      from: "From React Auth Web App",
+      to: email,
+      subject: "verification email",
+      html: VERIFICATION_EMAIL_TEMPLATE.replace(
+        "{verificationCode}",
+        verificationToken,
+      ),
+    });
 
-    console.log("sendVerificationEmail: ", response);
+    console.log("sendVerificationEmail: ", response.messageId);
   } catch (error) {
     console.log("sendVerificationEmail: ", error);
   }
@@ -35,25 +32,22 @@ export const welcomeEmail = async (
   email: string,
 ): Promise<void> => {
   try {
-    const response = mailClient.sendMail({
+    const response = await mailClient.sendMail({
       from: "From React Auth Web App",
       to: email,
       subject: "Welcome Email",
       html: WELCOME_EMAIL_TEMPLATE.replace("{name}", name),
     });
 
-    console.log("Welcome email sent successfully", response);
+    console.log("Welcome email sent successfully", response.messageId);
   } catch (error) {
-    console.error(`Error sending welcome email`, error);
-
-    throw new Error(`Error sending welcome email: ${error}`);
+    console.error("Error sending welcome email", error);
   }
 };
 
 export const sendPasswordResetEmail = async (email: string, url: string) => {
   try {
-    console.log("sendPasswordResetEmail url: ", url);
-    mailClient.sendMail({
+    await mailClient.sendMail({
       from: "From React Auth Web App",
       to: email,
       subject: "Password Reset Email",
@@ -69,7 +63,7 @@ export const sendPasswordResetEmail = async (email: string, url: string) => {
 
 export const sendSuccessResetEmail = async (email: string) => {
   try {
-    mailClient.sendMail({
+    await mailClient.sendMail({
       from: "From React Auth Web App",
       to: email,
       subject: "Password Reset Success Email",
@@ -77,6 +71,5 @@ export const sendSuccessResetEmail = async (email: string) => {
     });
   } catch (error) {
     console.log("sendSuccessResetEmail: ", error);
-    throw new Error(`error while sending Reset Email: ${error}`);
   }
 };
