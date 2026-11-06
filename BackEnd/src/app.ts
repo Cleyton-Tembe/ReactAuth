@@ -12,10 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://reactauth-6j7h-hh6xfkia5-team-sw.vercel.app",
-    ],
+    origin: ["http://localhost:5173", "https://reactauth-6j7h.vercel.app"],
     credentials: true,
   }),
 );

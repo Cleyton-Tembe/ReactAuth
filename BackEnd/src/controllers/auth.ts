@@ -185,7 +185,9 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
     await sendPasswordResetEmail(
       dbUser.email,
-      process.env.RESET_PWD_URL! + "/" + resetToken,
+      process.env.NODE_ENV === "production"
+        ? process.env.RESET_PWD_URL! + "/" + resetToken
+        : "http://localhost:5173/reset-password/" + resetToken,
     );
 
     return res
