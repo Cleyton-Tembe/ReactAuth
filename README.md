@@ -6,7 +6,7 @@ Sistema de autenticação completo com React e Express: registo, verificação d
 
 ## Demo
 
-🔗 **[Ver demo](COLOCA_AQUI_O_LINK_DA_DEMO)**
+🔗 **[Ver demo](https://reactauth-teal.vercel.app/)**
 
 ## Funcionalidades
 
