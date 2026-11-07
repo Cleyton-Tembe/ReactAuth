@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { formatDate } from "../util/date";
 import { useAuth } from "../hooks/authook";
 import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const HomePage = () => {
-  const { authUser, logOut, checkAuth } = useAuth();
+  const { authUser, logOut, checkAuth, isCheckingAuth } = useAuth();
 
   useEffect(() => {
     checkAuth();
@@ -15,8 +15,8 @@ const HomePage = () => {
     logOut();
   };
 
-  if (!authUser) {
-    <Loader2 className="animate-spin w-32 h-32" />;
+  if (isCheckingAuth) {
+    return <LoadingSpinner />;
   }
 
   return (

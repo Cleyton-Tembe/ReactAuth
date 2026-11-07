@@ -20,7 +20,7 @@ export interface IUser {
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [authUser, setAuthUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -120,13 +120,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      setIsCheckingAuth(true);
       const response = await AxiosInstance.get("/protect");
       console.log("response: ", response);
       if (response) {
         if (response.status === 200) {
           setAuthUser(response.data.userFound);
-          setIsAuthenticated(true);
           toast.success(`Welcome ${response.data.userFound.name}`);
         } else {
           toast.error("Server answered and you failed");

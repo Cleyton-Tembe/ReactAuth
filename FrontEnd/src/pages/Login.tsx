@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
-import { Link as LLink, Loader, Lock, Mail } from "lucide-react";
+import { ArrowRight, Link as LLink, Loader, Lock, Mail } from "lucide-react";
 import { useAuth } from "../hooks/authook";
 import toast from "react-hot-toast";
 
@@ -89,14 +89,12 @@ const Login = () => {
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-400 flex items-center gap-1">
           Don't have an account?{" "}
-          <span>
-            <LLink />
-          </span>
           <Link to={"/sign-up"} className="text-green-400 hover:underline">
             Sign Up
           </Link>
+          <ArrowRight className="text-green-400 h-4 w-4" />
         </p>
       </div>
     </motion.div>

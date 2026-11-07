@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FloatingShape from "./components/FloatingShape";
 import SignUp from "./pages/SignUp";
@@ -7,6 +7,37 @@ import EmailVerificationPage from "./pages/EmailVerficationPage";
 import HomePage from "./pages/HomePage";
 import ResetPasswordPage from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
+import { useAuth } from "./hooks/authook";
+
+// protect routes that require authentication
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, authUser } = useAuth();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!authUser?.isVerified) {
+    return <Navigate to="/verify-email" replace />;
+  }
+
+  return children;
+};
+
+// redirect authenticated users to the home page
+const RedirectAuthenticatedUser = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const { isAuthenticated, authUser } = useAuth();
+
+  if (isAuthenticated && authUser?.isVerified) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
 
 function App() {
   return (
@@ -38,15 +69,48 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <RedirectAuthenticatedUser>
+                <SignUp />
+              </RedirectAuthenticatedUser>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RedirectAuthenticatedUser>
+                <Login />
+              </RedirectAuthenticatedUser>
+            }
+          />
           <Route path="/verify-email" element={<EmailVerificationPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            path="/forgot-password"
+            element={
+              <RedirectAuthenticatedUser>
+                <ForgotPassword />
+              </RedirectAuthenticatedUser>
+            }
+          />
           <Route
             path="/reset-password/:token"
-            element={<ResetPasswordPage />}
+            element={
+              <RedirectAuthenticatedUser>
+                <ResetPasswordPage />
+              </RedirectAuthenticatedUser>
+            }
           />
+          <Route path="*" element={<Navigate to={"/"} replace />} />
         </Routes>
       </div>
     </>
